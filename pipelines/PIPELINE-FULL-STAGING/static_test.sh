@@ -2,8 +2,8 @@
 
 source todo-list-aws/bin/activate
 set -x
-
-RAD_ERRORS=$(radon cc src -nc > /tmp/unir-radon | wc -l)
+radon cc src  > /tmp/unir_radon 2>&1
+RAD_ERRORS=$(wc -l /tmp/unir_radon)
 ##complejidad ciclomática de todos  los lambdas es mayor o igual que B
 if [[ $RAD_ERRORS -ne 99 ]]
 then
