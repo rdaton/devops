@@ -32,4 +32,4 @@ fi
 
 
 ##limpieza
-rm /tmp/unir-*
+rm /tmp/unir-radon
