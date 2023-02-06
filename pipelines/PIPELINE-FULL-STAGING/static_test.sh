@@ -3,15 +3,17 @@
 source todo-list-aws/bin/activate
 set -x
 
-RAD_ERRORS=$(radon cc src -nc | wc -l)
-# complejidad ciclomática de todos  los lambdas es mayor o igual que B
-if [[ $RAD_ERRORS -ne 0 ]]
+RAD_ERRORS=$(radon cc src -nc > /tmp/unir-radon | wc -l)
+##complejidad ciclomática de todos  los lambdas es mayor o igual que B
+if [[ $RAD_ERRORS -ne 99 ]]
 then
     echo 'Ha fallado el análisis estatico de RADON - CC; complejidad ciclomática de alguno de los lambdas es igual o peor que C'
+	cat /tmp/unir-radon
     exit 1
 fi
 
-#el código desarrollado en Python cumple con las reglas de estilo definidas por pep8
+##el código desarrollado en Python cumple con las reglas de estilo definidas por pep8
+##el propio flake8 imprimirá por std output los nombres de los ficheros que tienen algún problema
 flake8 src/*.py
 if [[ $? -ne 0 ]]
 then
