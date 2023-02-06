@@ -2,15 +2,17 @@
 
 source todo-list-aws/bin/activate
 set -x
-##guardo salida de radon en /tmp/unir-radon
-radon cc src > /tmp/unir-radon 2>&1
+##guardo salida de radon en /tmp/unir-radon, por si no supera el umbral  (-nc) y tengo que imprimrir
+radon cc src -nc > /tmp/unir-radon 2>&1
 RAD_ERRORS=$(cat /tmp/unir-radon| wc -l)
 ##complejidad ciclomática de todos  los lambdas es mayor o igual que B
-if [[ $RAD_ERRORS -ne 99 ]]
+if [[ $RAD_ERRORS -ne 0 ]] 
 then
     echo 'Ha fallado el análisis estatico de RADON - CC; complejidad ciclomática de alguno de los lambdas es igual o peor que C'
+	##imprimo si error
 	cat /tmp/unir-radon
-	rm /tmp/unir-radon
+	##limpio fichero
+	rm /tmp/unir-radon  
     exit 1
 fi
 
