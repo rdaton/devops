@@ -102,7 +102,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         from src.todoList import get_table
         import os
         os.environ['ENDPOINT_OVERRIDE']="http://localhost:8000"
-        table = get_table("patata")
+        table = get_table()
 
     
         
