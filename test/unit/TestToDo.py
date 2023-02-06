@@ -97,6 +97,11 @@ class TestDatabaseFunctions(unittest.TestCase):
                             "false",
                             self.dynamodb)
         self.assertTrue(result == None, "fallado test_update_no_existe")
+        
+    def delete_no_existe(self):
+        idItem = -1;
+        delete_item(idItem, self.dynamodb)
+        self.assertTrue(True,"fallado delete_no_existe")
 
         
 
