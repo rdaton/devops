@@ -17,18 +17,28 @@ then
 fi
 
 ##el código desarrollado en Python cumple con las reglas de estilo definidas por pep8
-##el propio flake8 imprimirá por std output los nombres de los ficheros que tienen algún problema
-flake8 src/*.py
+##guardo salida de flake8 en /tmp/unir-flake8, por si no supera el quality gateway y tengo que imprimrir
+
+flake8 --verbose src/*.py > /tmp/unir-flake8 2>&1
 if [[ $? -ne 0 ]]
 then
+	##imprimo si error
+	cat /tmp/unir-flake8
+	##limpio fichero
+	rm /tmp/unir-flake8
     exit 1
 fi
 
 #El alumno deberá de validar que no existen fallas de seguridad en el código de Python desarrollado.
 #Para ello se usará la librería bandit. En caso de haber fallos de nivel alto el pipeline debe fallar indicando qué líneas de código tienen potenciales riesgos de seguridad
-bandit src/*.py
+
+bandit src/*.py > /tmp/unir-bandit
 if [[ $? -ne 0 ]]
 then
+	##imprimo líneas si error
+	grep -i location /tmp/unir-bandit
+	##limpio fichero
+	rm /tmp/unir-bandit
     exit 1
 fi
 
@@ -36,3 +46,5 @@ fi
 
 ##limpieza
 rm /tmp/unir-radon
+rm /tmp/unir-flake8
+rm /tmp/unir-bandit

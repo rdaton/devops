@@ -8,6 +8,5 @@ export DYNAMODB_TABLE=todoUnitTestsTable
 python test/unit/TestToDo.py
 pip show coverage
 coverage run --include=src/todoList.py test/unit/TestToDo.py
-##https://coverage.readthedocs.io/en/7.1.0/ 
-coverage report -m
+coverage report
 coverage xml
