@@ -2,13 +2,13 @@ pipeline {
     agent any
     stages {
         
-        stage('Staging'){
+      /*  stage('Staging'){
             steps{
                 echo 'Starting staging job'
                 build job: 'PIPELINE-FULL-STAGING', parameters: [
                       string(name:'ENVIRONMENT', value: "staging")]
             }
-        }
+        } */
         stage('Merge'){
             steps{
                 sh script: """
@@ -24,14 +24,14 @@ pipeline {
 
             }
         }
-        stage('Production'){
+       */ stage('Production'){
             steps{
                 
                 echo 'Starting production job'
                 build job: 'PIPELINE-FULL-PRODUCTION', parameters: [
                       string(name:'ENVIRONMENT', value: "production")]
             }
-        }
+        }*/
     }
     post { 
         always { 
