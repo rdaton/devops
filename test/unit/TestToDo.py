@@ -99,6 +99,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertTrue(result == None, "fallado test_update_no_existe")
         
     def test_get_table(self):
+        from src.todoList import get_table
         import os
         os.environ['ENDPOINT_OVERRIDE']="http://localhost:8000"
         table = get_table("patata")
