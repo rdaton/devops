@@ -32,8 +32,8 @@ pipeline {
                 build job: 'PIPELINE-FULL-PRODUCTION', parameters: [
                       string(name:'ENVIRONMENT', value: "production")]
             }
-        }
-    }*/
+        }*/
+    }
     post { 
         always { 
             echo 'Clean env: delete dir'
