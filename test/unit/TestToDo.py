@@ -98,11 +98,12 @@ class TestDatabaseFunctions(unittest.TestCase):
                             self.dynamodb)
         self.assertTrue(result == None, "fallado test_update_no_existe")
         
-    def delete_no_existe(self):
-        idItem = -1;
-        delete_item(idItem, self.dynamodb)
-        self.assertTrue(bool(1),"fallado delete_no_existe")
+    def test_get_table(self):
+        import os
+        os.environ['ENDPOINT_OVERRIDE']="http://localhost:8000"
+        table = get_table("patata")
 
+    
         
 
     def test_get_todo(self):
