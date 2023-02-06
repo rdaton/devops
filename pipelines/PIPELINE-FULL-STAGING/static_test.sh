@@ -2,15 +2,15 @@
 
 source todo-list-aws/bin/activate
 set -x
-##guardo salida de radon en un fichero en /tmp
-##radon cc src > /tmp/unir-radon 2>&1
-echo 'patata' > /tmp/unir-radon 2>&1
-RAD_ERRORS=$(wc -l /tmp/unir-radon)
+##guardo salida de radon en /tmp/unir-radon
+radon cc src > /tmp/unir-radon 2>&1
+RAD_ERRORS=$(cat /tmp/unir-radon| wc -l)
 ##complejidad ciclomática de todos  los lambdas es mayor o igual que B
 if [[ $RAD_ERRORS -ne 99 ]]
 then
     echo 'Ha fallado el análisis estatico de RADON - CC; complejidad ciclomática de alguno de los lambdas es igual o peor que C'
 	cat /tmp/unir-radon
+	rm /tmp/unir-radon
     exit 1
 fi
 
