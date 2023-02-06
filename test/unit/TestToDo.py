@@ -82,6 +82,32 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(Exception, put_item("", self.dynamodb))
         print ('End: test_put_todo_error')
 
+    def test_get_no_existe(self):
+        from src.todoList import get_item
+        idItem = -1;
+        responseGet = get_item(
+                idItem,
+                self.dynamodb)
+        self.assertTrue(responseGet == None, "fallado test_get_no_existe")
+        
+    def test_update_no_existe(self):
+        from src.todoList import update_item
+        idItem = -1;
+        result = update_item(idItem, " ",
+                            "false",
+                            self.dynamodb)
+        self.assertTrue(result == None, "fallado test_update_no_existe")
+        
+    def test_get_table(self):
+        from src.todoList import get_table
+        import os
+        os.environ['ENDPOINT_OVERRIDE']="http://localhost:8000"
+        table = get_table()
+        os.environ['ENDPOINT_OVERRIDE']=None
+
+    
+        
+
     def test_get_todo(self):
         print ('---------------------')
         print ('Start: test_get_todo')
