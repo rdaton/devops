@@ -83,6 +83,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('End: test_put_todo_error')
 
     def test_get_no_existe(self):
+        from src.todoList import get_item
         idItem = -1;
         responseGet = get_item(
                 idItem,
@@ -90,6 +91,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertTrue(responseGet == None, "fallado test_get_no_existe")
         
     def test_update_no_existe(self):
+        from src.todoList import update_item
         idItem = -1;
         result = update_item(idItem, " ",
                             "false",
