@@ -3,14 +3,14 @@
 source todo-list-aws/bin/activate
 set -x
 
-RAD_LINES=$(radon cc src) #-nc )
-RAD_ERRORS=$(echo $RAD_LINES | wc -l)
+radon cc src > /tmp/unir_radon #-nc 
+RAD_ERRORS=$(wc -l /tmp/unir_radon)
 # complejidad ciclomática de todos  los lambdas es mayor o igual que B
 if [[ $RAD_ERRORS -ne 0 ]]
 then
     echo 'Ha fallado el análisis estatico de RADON - CC; complejidad ciclomática de alguno de los lambdas es igual o peor que C'
 	echo -e '\n' 
-	echo $RAD_LINES
+	cat /tmp/unir_radon
     exit 1
 fi
 
