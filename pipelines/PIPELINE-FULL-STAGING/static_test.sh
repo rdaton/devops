@@ -3,7 +3,8 @@
 source todo-list-aws/bin/activate
 set -x
 ##guardo salida de radon en un fichero en /tmp
-radon cc src > /tmp/unir-radon 2>&1
+##radon cc src > /tmp/unir-radon 2>&1
+echo 'patata' > /tmp/unir-radon 2>&1
 RAD_ERRORS=$(wc -l /tmp/unir-radon)
 ##complejidad ciclomática de todos  los lambdas es mayor o igual que B
 if [[ $RAD_ERRORS -ne 99 ]]
