@@ -24,7 +24,7 @@ pipeline {
 
             }
         }
-       */ stage('Production'){
+       /* stage('Production'){
             steps{
                 
                 echo 'Starting production job'
