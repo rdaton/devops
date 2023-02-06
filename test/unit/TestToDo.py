@@ -101,7 +101,7 @@ class TestDatabaseFunctions(unittest.TestCase):
     def test_get_table(self):
         from src.todoList import get_table
         import os
-        os.environ['ENDPOINT_OVERRIDE']="http://169.254.0.1:8000"
+        os.environ['ENDPOINT_OVERRIDE']="http://localhost:8000"
         table = get_table()
         os.environ['ENDPOINT_OVERRIDE']=None
 
