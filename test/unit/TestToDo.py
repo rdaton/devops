@@ -87,14 +87,14 @@ class TestDatabaseFunctions(unittest.TestCase):
         responseGet = get_item(
                 idItem,
                 self.dynamodb)
-        self.assertTrue(responseGet == None)
+        self.assertTrue(responseGet == None, "fallado test_get_no_existe")
         
     def test_update_no_existe(self):
         idItem = -1;
         result = update_item(idItem, " ",
                             "false",
                             self.dynamodb)
-        self.assertTrue(result == None)
+        self.assertTrue(result == None, "fallado test_update_no_existe")
 
         
 
