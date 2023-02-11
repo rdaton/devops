@@ -201,9 +201,8 @@ class TestApi(unittest.TestCase):
         )
         print('End - integration test Delete TODO')
         
-        def test_bateria_pruebas_enunciado(self):
+    def test_bateria_pruebas_enunciado(self):
         print('Start - test_bateria_pruebas_enunciado')
-
         url = BASE_URL+"/todos"
         data = {
          "text": "example_test"
