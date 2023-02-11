@@ -283,6 +283,7 @@ class TestApi(unittest.TestCase):
         )
         #Después se debe de hacer una llamada get/{id} nuevamente con el id original para validar que ya no existe esa entrada en la tabla de la base de datos.
         url = BASE_URL+"/todos/"+ID_TODO
+        response = requests.get(url)
         print('Response Get Todo '+ url+': '+ str(response))
         self.assertEqual(
             response.status_code, 404, "test_bateria_pruebas_enunciado Error en la petición API a {url}"
