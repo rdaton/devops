@@ -200,3 +200,93 @@ class TestApi(unittest.TestCase):
             response.status_code, 404, "Error en la petición API a {url}"
         )
         print('End - integration test Delete TODO')
+        
+        def test_bateria_pruebas_enunciado(self):
+        print('Start - test_bateria_pruebas_enunciado')
+
+        url = BASE_URL+"/todos"
+        data = {
+         "text": "example_test"
+        }
+        #Prueba que haga una llamada a la función create y el resultado de la respuesta http sea un 200 
+        response = requests.post(url, data=json.dumps(data))
+        json_response = response.json()
+        print('Response Add Todo: '+ str(json_response))
+        jsonbody= json.loads(json_response['body'])
+        #y que al consultar directamente contra la base de datos sea correcto.
+        ID_TODO = jsonbody['id']
+        print ('ID todo:'+ID_TODO)
+        self.assertEqual(
+            response.status_code, 200, "test_bateria_pruebas_enunciado Error en la petición API a {url}"
+        )
+        self.assertEqual(
+            jsonbody['text'], "example_test", "test_bateria_pruebas_enunciado Error en la petición API a {url}"
+        )
+        #Prueba que haga una llamada a la función list y el resultado de la respuesta http sea un 200 
+        response = requests.get(url)
+        print('Response List Todo:' + str(response.json()))
+        self.assertEqual(
+            response.status_code, 200, "test_bateria_pruebas_enunciado Error en la petición API a {url}"
+        )
+        #y que al consultar que el número de ítems sea distinto de cero.
+        self.assertTrue(response.json())
+        
+        #•	Prueba que haga una llamada a la función get/{id}, tomando como referencia el identificador id generado en el punto a) de este apartado y validando que sea el mismo resultado del payload que el payload que se usó originalmente en el punto a) 
+        
+        url = BASE_URL+"/todos/"+ID_TODO
+        response = requests.get(url)
+        json_response = response.json()
+        print('Response Get Todo: '+ str(json_response))
+        #y que la respuesta http sea un 200.
+        self.assertEqual(
+            response.status_code, 200, "test_bateria_pruebas_enunciado Error en la petición API a {url}"
+        )
+        self.assertEqual(
+            json_response['text'], "example_test - GET", "test_bateria_pruebas_enunciado Error en la petición API a {url}"
+        )
+        #Prueba que haga una llamada a la función update/{id} 
+        url = BASE_URL+"/todos/" + ID_TODO
+        data = {
+         "text": "example_test_m",
+         "checked": "true"
+        }
+        response = requests.put(url, data=json.dumps(data))
+        json_response = response.json()
+        print('Response Update todo: ' + str(json_response))
+        #y el resultado de la respuesta http un 200         
+        self.assertEqual(
+            response.status_code, 200, "test_bateria_pruebas_enunciado Error en la petición API a {url}"
+        )
+        #y que el valor actualizado sea exactamente el mismo, invocando a la función get/{id} y comparado los valores.
+
+        self.assertEqual(
+            json_response['text'], "example_test_m", "test_bateria_pruebas_enunciado Error en la petición API a {url}"
+        )
+        url = BASE_URL+"/todos/"+ID_TODO
+        response = requests.get(url)
+        json_response = response.json()
+        print('Response Get Todo: '+ str(json_response))
+        self.assertEqual(
+            response.status_code, 200, "test_bateria_pruebas_enunciado Error en la petición API a {url}"
+        )
+        self.assertEqual(
+            json_response['text'], "example_test_m", "test_bateria_pruebas_enunciado Error en la petición API a {url}"
+        )
+        
+        #Prueba que haga una llamada a la función delete/{id}, tomando como referencia el identificador id generado en el punto a) de este apartado 
+
+        #Delete TODO to restore state
+        url = BASE_URL+"/todos/"+ID_TODO
+        response = requests.delete(url)
+        #y devuelva una respuesta 200. 
+        self.assertEqual(
+            response.status_code, 200, "test_bateria_pruebas_enunciado Error en la petición API a {url}"
+        )
+        #Después se debe de hacer una llamada get/{id} nuevamente con el id original para validar que ya no existe esa entrada en la tabla de la base de datos.
+        url = BASE_URL+"/todos/"+ID_TODO
+        print('Response Get Todo '+ url+': '+ str(response))
+        self.assertEqual(
+            response.status_code, 404, "test_bateria_pruebas_enunciado Error en la petición API a {url}"
+        )
+        
+        print('End - test_bateria_pruebas_enunciado')
