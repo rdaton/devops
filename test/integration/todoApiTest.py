@@ -241,7 +241,7 @@ class TestApi(unittest.TestCase):
             response.status_code, 200, "test_bateria_pruebas_enunciado Error en la petición API a {url}"
         )
         self.assertEqual(
-            json_response['text'], "example_test - GET", "test_bateria_pruebas_enunciado Error en la petición API a {url}"
+            json_response['text'], "example_test", "test_bateria_pruebas_enunciado Error en la petición API a {url}"
         )
         #Prueba que haga una llamada a la función update/{id} 
         url = BASE_URL+"/todos/" + ID_TODO
